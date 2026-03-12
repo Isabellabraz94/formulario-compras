@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Solicitação de Compra — K-Way</title>
+<title>Solicitação de Compra — Kway</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -549,8 +549,8 @@
     <div class="logo-area">
       <div class="logo-icon">KW</div>
       <div>
-        <div class="logo-text">K-Way</div>
-        <div class="logo-sub">Serviços e Soluções</div>
+        <div class="logo-text">Kway</div>
+        <div class="logo-sub">Soluções Integradas</div>
       </div>
     </div>
     <div class="doc-badge">Solicitação de Compra</div>
@@ -593,8 +593,8 @@
 
     <div class="form-grid">
       <div class="field">
-        <label>Nº do Protocolo <span class="req">*</span></label>
-        <input type="text" id="protocolo" placeholder="Ex: KW-2025-0001" oninput="autoProtocol(this)">
+        <label>Nº do Protocolo <span style="font-size:10px;color:var(--text-muted);font-weight:400">(preenchido pelo setor de compras)</span></label>
+        <input type="text" id="protocolo" placeholder="A ser preenchido pelo setor de compras" oninput="autoProtocol(this)">
         <span class="field-hint">Gerado automaticamente ou informe manualmente.</span>
         <span class="field-error" id="err-protocolo">Campo obrigatório.</span>
       </div>
@@ -941,11 +941,11 @@
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('data_solicitacao').value = today;
     document.getElementById('assin_data1').value = today;
-    autoGenerateProtocol();
+    
     addItem(); addItem(); addItem();
   };
 
-  function autoGenerateProtocol() {
+  function autoGenerateProtocol_disabled() {
     const d = new Date();
     const yr = d.getFullYear();
     const seq = String(Math.floor(Math.random() * 900) + 100);
@@ -997,7 +997,6 @@
     };
 
     if (step === 1) {
-      req('protocolo','err-protocolo');
       req('data_solicitacao','err-data');
       req('contrato','err-contrato');
       req('responsavel','err-responsavel');
@@ -1145,12 +1144,12 @@
     ).join('\n');
 
     const assunto = encodeURIComponent(
-      `[K-Way] Nova Solicitação de Compra — Protocolo ${v('protocolo')}`
+      `[Kway] Nova Solicitação de Compra — ${v('responsavel')} — ${v('data_solicitacao')}`
     );
 
     const corpo = encodeURIComponent(
 `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  SOLICITAÇÃO DE COMPRA — K-Way
+  SOLICITAÇÃO DE COMPRA — Kway
   Protocolo: ${v('protocolo')}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -1178,7 +1177,7 @@ OBSERVAÇÕES
   ${v('observacoes')}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Enviado via Formulário K-Way
+Enviado via Formulário Kway
 `);
 
     window.location.href = `mailto:isabella.braz@kway.com.br?subject=${assunto}&body=${corpo}`;
